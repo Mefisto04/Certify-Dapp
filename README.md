@@ -1,213 +1,56 @@
-# Certificate Validation using Blockchain
+# Blockchain-Based Document Verification Platform
 
----
-
-You can read my article on [Medium](https://medium.com/@sahilkadam257/certificate-validation-using-blockchain-3c560fd1738c) to get a better overall understanding of this project.
-
----
-
-## Introduction
-
-This project provides a Blockchain based solution for generating and verifying digital certificates. The certificate information (uid, candidate_name, course_name, org_name, ipfs_hash) is stored on the blockchain. First, the certificate pdf is generated and stored onto IPFS using Pinata service. Then, the IPFS hash obtained is stored on the blockchain along with other information.
-
-The system comprises of 2 main entities:
-- **Institute**: Responsible for generating and issuing certificates. Has the functionality to generate and view certificates.
-
-- **Verifier**: Responsible for verifying certificates. Has the functionality to verify certificates by either uploading a certificate pdf or by inputting the certificate id.
-
----
-
-## Features
-
-- **Smart Contract:** Utilizes a Solidity smart contract to manage and store certificate details on the Ethereum blockchain.
-- **IPFS Integration:** Stores certificate PDFs on IPFS via Pinata for decentralized and secure file storage.
-- **Firebase Authentication:** Uses Firebase for authentication.
-- **Streamlit App:** Provides a user-friendly interface for generating and verifying certificates.
-
----
-
-## Getting Started
-
-Clone the repository using the command:
-```sh
-git clone https://github.com/Sahil181045/Certificate-Validation-System.git
-```
-You can run the project either through:
-- [Local Setup](#local-setup)
-- [Using Docker](#using-docker) (Recommended)
-
----
-
-## Local Setup
-
-### Prerequisites
-
-- **Node version >= 21.0.0**  
-Truffle requires node version 16 or higher. The node version on my machine on which I tested this project was 21.0.0. You can try a lower node version (>=16.0).
-
-- **Python version >= 3.9.10**  
-    Python version 3.9.10 or higher is recommended but other versions may also work.
-
-- **Globally installed packages for Truffle and Ganache-cli**  
-
-    ```sh
-    npm install -g truffle
-    ```
-    ```sh
-    npm install -g ganache-cli
-    ```
-
-- **Python packages**  
-    In the project's root directory, exececute the command:
-    ```sh
-    pip install -r application/requirements.txt
-    ```
-    It is recommended to create a virtual environment and then install the requirements and run the streamlit application in that virtual environment.
-
-- **Firebase project setup**  
-    Create a project on [Firebase Console](https://console.firebase.google.com/). This will be used to setup an authentication service in the project. Enable email/password sign in method under Authentication in the Build section.
-    Go to project settings. Add new app. Note the following details in a .env file inside the project's root directory.
-    ```sh
-    FIREBASE_API_KEY
-    FIREBASE_AUTH_DOMAIN
-    FIREBASE_DATABASE_URL (Set this to "")
-    FIREBASE_PROJECT_ID
-    FIREBASE_STORAGE_BUCKET
-    FIREBASE_MESSAGING_SENDER_ID
-    FIREBASE_APP_ID
-    ```
-
-- **Pinata account setup**  
-    Create an account on [Pinata](https://app.pinata.cloud/). Go to the API keys section and generate a new key. Note the API key and secret key in .env file.
-
-- **.env file**  
-    Finally your .env file should contain the following things:
-
-    ```sh
-    PINATA_API_KEY = "<Your Pinata API key>"
-    PINATA_API_SECRET = "<Your Pinata Secret Key>"
-    FIREBASE_API_KEY = "<Your Firebase API key>"
-    FIREBASE_AUTH_DOMAIN = "<Your Firebase auth domain>"
-    FIREBASE_DATABASE_URL = ""
-    FIREBASE_PROJECT_ID = "<Your Firebase project id>"
-    FIREBASE_STORAGE_BUCKET = "<Your Firebase Storage Bucket>"
-    FIREBASE_MESSAGING_SENDER_ID = "<Your Firebase messaging sender id>"
-    FIREBASE_APP_ID = "<Your Firebase app id>"
-    institute_email = "institute@gmail.com" # Feel free to modify this
-    institute_password = "123456" # Feel free to modify this
-    ```
-    Note: This institute email and password in the .env file will be used to login as Institute inside the app.
-
-### Running the project
-
-1. Open a terminal anywhere and start the Ganache blockchain.
-    ```
-    ganache-cli -h 127.0.0.1 -p 8545
-    ```
-
-2. Open a new terminal in the project's root directory and execute the following command to compile and deploy the smart contracts.
-    ```sh
-    truffle migrate
-    ```
-
-3. Change the working directory to application directory inside the project's root directory.
-    ```sh
-    cd application
-    ```
-
-4. Launch the streamlit app.
-    ```sh
-    streamlit run app.py
-    ```
-
-5. You can now view the app on your browser running on [localhost:8501](https:localhost:8501).
-
-6. To stop the application, press Ctrl+C.
-
----
+![1](https://github.com/user-attachments/assets/b600bb22-7502-4b7c-a3a7-40133818b007)
+![4](https://github.com/user-attachments/assets/72d3c015-36a1-4a52-83b6-aa99f67544e2)
+![5](https://github.com/user-attachments/assets/af5103b1-097f-4045-81bb-2365a516ac2d)
+![6](https://github.com/user-attachments/assets/f7710a50-1a22-4a6f-aa95-f63abcb3245c)
+![7](https://github.com/user-attachments/assets/5f97048b-6c37-4616-a1d5-b2aacc235449)
+![8](https://github.com/user-attachments/assets/49d97c6a-0f35-4bd3-a266-aa0caa37cd5c)
 
 
-## Using Docker
+## Overview
+This project is a blockchain-based document verification platform that leverages Ethereum to store and verify documents such as NTA results, RTO driving licenses, course certificates, and university result cards. The platform integrates with Aadhaar for identity verification and ensures that data is stored securely on-chain, making documents tamper-proof and verifiable by authorized parties.
 
-### Prerequisites
+The platform features two main functionalities:
+1. **Certificate Creation and Management** – For institutions to create and manage certificates.
+2. **Document Verification** – For authorized government personnel to verify the authenticity of documents submitted by users.
 
-- **Docker** 
-You can either download [Docker Desktop](https://www.docker.com/products/docker-desktop/) for Windows/Mac/Linux or on Linux you can install the docker package via a package manager.
+## Table of Contents
+1. [Overview](#overview)
+2. [Portals and Functionalities](#portals-and-functionalities)
+   - [Admin Portal](#admin-portal)
+   - [Verifier Portal](#verifier-portal)
+3. [Technologies Used](#technologies-used)
+4. [Challenges Faced](#challenges-faced)
+5. [How It Fits Into ETHIndia: Ethereum Track](#how-it-fits-into-ethindia-ethereum-track)
 
-### Running the project
+## Portals and Functionalities
 
-1. Start the Docker engine by running the Docker Desktop application.
+### Admin Portal
+The Admin Portal is used by institutions to create, manage, and issue certificates. It includes the following functionalities:
 
-2. Open a terminal in the project's root directory.
+- **Login**: Institutions log in using a unique login ID provided for secure access.
+- **Certificate Creation**: Admins can create certificates linked to a user's Aadhaar number. This ensures authenticity by associating each certificate with a verified identity.
+- **View Previous Certificates**: Admins can view and verify previously created certificates associated with a particular Aadhaar number, ensuring there are no duplicates or fraudulent entries.
+- **Download and Confirmation**: After creating a certificate, the institution can download it, view details, and confirm its validity.
+- **Aadhaar Integration**: The platform fetches data from the Aadhaar system during certificate creation, ensuring the data matches the verified identity.
 
-3. Run the following command to start the 2 containers (ganache and streamlit-app).
-    ```sh
-    docker-compose up
-    ```
+### Verifier Portal
+The Verifier Portal is designed for authorized government personnel and includes these functionalities:
 
-4. You can now view the app on your browser running on [localhost:8501](https:localhost:8501).
+- **Secure Login and Signup**: Only government-verified entities can access this portal. Each verifier must authenticate their identity to gain access.
+- **Document Verification**: Verifiers can upload a PDF of the certificate they wish to verify. The system checks if the document matches the on-chain data.
+- **Tamper Detection**: If a certificate's details have been altered, the platform identifies changes through hash comparison and flags the document as tampered.
+- **Genuine Document Confirmation**: If the document matches the on-chain data and hash values, the system confirms its authenticity and marks it as genuine.
 
-5. To stop and remove the containers, use the command:
-    ```sh
-    docker-compose down
-    ```
+## Technologies Used
+Ethereum, Solidity, IPFS, Node.js, React, Aadhaar API, Web3.js, OAuth, IPFS, Metamask
 
-    Note: The insitute email id is "institute@gmail.com" and password is "123456". You will require this for logging in as Institute for the process of Certificate generation.
+## Challenges Faced
+1. **Aadhaar Integration**: Implementing secure and compliant data fetching from Aadhaar was challenging. We used encryption and multi-factor authentication to protect data access.
+2. **On-Chain Data Storage**: Storing data on-chain while optimizing gas fees required a balance between what is stored directly on the blockchain and what is stored on IPFS.
+3. **Hash-Based Verification**: Developing a reliable mechanism to detect document tampering through hash value changes took extensive testing and fine-tuning.
+4. **Role-Based Access Management**: Securing access to the Verifier Portal required careful implementation of role-based access control using OAuth.
 
----
-
-## Additional Notes
-
-- The docker-compose.yml file provided first downloads the images for ganache and streamlit-app from Docker hub and then starts these containers using docker-compose up.
-
-- If you want to build your own images, I have provided the Dockerfiles for ganache (Dockerfile.ganache) and streamlit-app (Dockerfile.streamlit). Before building the images, first make the below changes in application/connection.py and truffle-config.js:
-
-    In **application/connection.py**, on line 6:
-    ```
-    w3 = Web3(Web3.HTTPProvider('http://ganache:8545'))
-    ```
-    
-    In **truffle-config.js**, on line 4:
-    ```
-    host: "ganache",
-    ```
-
-    This changes the host to "ganache" which is the service defined in docker-compose.yml.
-
-    After making these changes, you can build the images using `docker-compose build`. After this, you can use `docker-compose up` to start the containers and `docker-compose down` to stop them.
-
----
-
-## Application Screenshots
-
-![Home page](https://github.com/Sahil181045/Certificate-Validation-System/assets/115214968/b808b951-0e1d-479f-a891-621f0fbb374c)
-<p align="center"><em>Home Page</em></p>
-<br></br>
-
-![Login page](https://github.com/Sahil181045/Certificate-Validation-System/assets/115214968/24854c98-9bc3-47eb-a84d-11cf7547812e)
-<p align="center"><em>Login Page</em></p>
-<br></br>
-
-![Generate Certificate Page](https://github.com/Sahil181045/Certificate-Validation-System/assets/115214968/20b1459c-b5f6-4166-8403-d03b247c061f)
-<p align="center"><em>Generate Certificate Page</em></p>
-<br></br>
-
-![View Certificate Page](https://github.com/Sahil181045/Certificate-Validation-System/assets/115214968/fca1a552-5a2d-4870-b9d9-5589da7d1fe4)
-<p align="center"><em>View Certificate Page</em></p>
-<br></br>
-
-![Verify Certificate using Certificate ID](https://github.com/Sahil181045/Certificate-Validation-System/assets/115214968/cd1e91f1-61d8-439b-a486-07a9147d714f)
-<p align="center"><em>Verify Certificate using Certificate ID</em></p>
-<br></br>
-
-![Verify Certificate using Certificate PDF](https://github.com/Sahil181045/Certificate-Validation-System/assets/115214968/11dc4300-3601-4f15-a801-53134e1756fd)
-<p align="center"><em>Verify Certificate using Certificate PDF</em></p>
-<br></br>
-
----
-
-## License
-
-This project is licensed under the MIT license. See the [LICENSE](https://github.com/Sahil181045/Certificate-Validation-System/blob/main/LICENSE) file for more details.
-
----
+## How It Fits Into ETHIndia: Ethereum Track
+Our project uses Ethereum’s blockchain to create a secure, tamper-proof, and transparent document verification system. By storing certificate data on-chain and using smart contracts to automate the verification process, we demonstrate the potential of Ethereum for solving real-world problems. The platform aligns with the Ethereum ethos of decentralization, security, and transparency, making it an ideal fit for ETHIndia: Ethereum Track.
