@@ -91,7 +91,7 @@ import json
 import os
 from dotenv import load_dotenv
 import hashlib
-from utils.cert_utils import generate_certificate
+from utils.cert_utils import generate_certificate_coursera
 from utils.streamlit_utils import view_certificate
 from connection import contract, w3
 from utils.streamlit_utils import hide_icons, hide_sidebar, remove_whitespaces
@@ -190,7 +190,7 @@ if selected == options[0]:
     if submit:
         pdf_file_path = "coursera.pdf"
         institute_logo_path = "../assets/logo.jpg"
-        generate_certificate(pdf_file_path, uid, candidate_name, course_name, org_name, institute_logo_path)
+        generate_certificate_coursera(pdf_file_path, uid, candidate_name, course_name, org_name, institute_logo_path)
 
         # Upload the PDF to Pinata
         ipfs_hash = upload_to_pinata(pdf_file_path, api_key, api_secret)
