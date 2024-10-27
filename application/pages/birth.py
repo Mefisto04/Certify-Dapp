@@ -9,10 +9,8 @@ from utils.streamlit_utils import view_certificate
 from connection import contract, w3
 from utils.streamlit_utils import hide_icons, hide_sidebar, remove_whitespaces
 
-st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
-hide_icons()
 hide_sidebar()
-remove_whitespaces()
+
 
 load_dotenv()
 
