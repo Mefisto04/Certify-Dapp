@@ -3,10 +3,8 @@ from db.firebase_app import register
 from streamlit_extras.switch_page_button import switch_page
 from utils.streamlit_utils import hide_icons, hide_sidebar, remove_whitespaces
 
-st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
-hide_icons()
 hide_sidebar()
-remove_whitespaces()
+
 
 form = st.form("login")
 email = form.text_input("Enter your email")
